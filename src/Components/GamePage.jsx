@@ -1,7 +1,7 @@
 import React from 'react';
 import ErrorPage from './ErrorPage';
 
-export function Component() {
+export function Component({ docData }) {
   return <div>GamePage</div>;
 }
 
