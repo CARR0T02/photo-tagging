@@ -13,13 +13,16 @@ export default function Home() {
   // );
 
   return (
-    <div className='home p-16 bg-zinc-800'>
+    <div id='home' className='p-16'>
       {/* {error && <ErrorPage />}
       {loading && <span>Collection: Loading...</span>} */}
       {snapshot && (
         <div id='game-selection'>
           {snapshot.docs.map((doc) => (
-            <GameCard docData={doc.data()} />
+            <GameCard
+              docData={doc.data()}
+              className='h-96 border-main-dark !bg-main font-semibold hover:shadow-main/60 hover:shadow-lg'
+            />
           ))}
         </div>
       )}

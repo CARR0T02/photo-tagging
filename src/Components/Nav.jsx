@@ -1,17 +1,22 @@
+import { Navbar } from 'flowbite-react';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function Nav() {
+export default function Nav({ className }) {
   return (
-    <nav>
-      <ul>
-        <li>
+    <Navbar className={className}>
+      <Navbar.Brand>
+        <NavLink to={'/'}>LOGO</NavLink>
+      </Navbar.Brand>
+      <Navbar.Toggle />
+      <Navbar.Collapse>
+        <Navbar.Link className={className}>
           <NavLink to={'/'}>Home</NavLink>
-        </li>
-        <li>
+        </Navbar.Link>
+        <Navbar.Link className={className}>
           <NavLink to={'/about'}>About</NavLink>
-        </li>
-      </ul>
-    </nav>
+        </Navbar.Link>
+      </Navbar.Collapse>
+    </Navbar>
   );
 }
