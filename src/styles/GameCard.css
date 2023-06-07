@@ -1,0 +1,11 @@
+#game-selection {
+  > a {
+    width: min(400px, 100%);
+  }
+}
+
+[data-testid='flowbite-card'] > img {
+  object-fit: cover;
+  object-position: 5% 25%;
+  height: 250px;
+}

@@ -1,0 +1,6 @@
+#game-selection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: clamp(0.5rem, 3vw, 16rem);
+  justify-items: center;
+}

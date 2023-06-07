@@ -1,0 +1,15 @@
+.sidebar {
+  width: min(50vw, 500px);
+}
+
+.char-img {
+  height: 10vh;
+  mix-blend-mode: multiply;
+}
+
+[data-testid='flowbite-sidebar-item-content'] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
