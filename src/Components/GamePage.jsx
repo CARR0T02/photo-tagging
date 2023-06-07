@@ -1,25 +1,63 @@
-import React from 'react';
+import '../styles/GamePage.css';
+import React, { useEffect, useState } from 'react';
 import ErrorPage from './ErrorPage';
 import { useLocation } from 'react-router-dom';
-import { Sidebar } from 'flowbite-react';
+import { db, storage } from '../firebase-config';
+import { collection } from 'firebase/firestore';
+import { useCollectionOnce } from 'react-firebase-hooks/firestore';
+import { useDownloadURL } from 'react-firebase-hooks/storage';
+import { mockArr } from './mock/mockCharArray';
+import GamepageSidebar from './GamepageSidebar';
+import GamePageSelect from './GamePageSelect';
 
 export function Component() {
-  let state = useLocation();
-  const docData = state.state.docData;
+  const { docData, imageURL, docID } = useLocation().state;
+  // const [snapshot, loading, error] = useCollectionOnce(
+  //   collection(db, 'levels', docID, 'characters')
+  // );
+  // ! Mocking
+  const snapshot = mockArr;
+  const loading = false;
+  // ! Mocking end
+  const [characters, setCharacters] = useState([]);
+  const [guessCoords, setGuessCoords] = useState([]);
+
+  useEffect(() => {
+    if (!loading) {
+      // setCharacters(charArrayFromSnapshot(snapshot));
+      setCharacters(mockArr);
+    }
+  }, [loading]);
+
+  function handleGameClick(e) {
+    const [relX, relY] = calcRelCoords(e.clientX, e.clientY);
+    setGuessCoords([relX, relY]);
+    console.log(relX, relY);
+  }
+
+  // TODO
+  function handleSubmitGuess(characterName) {
+    characters.forEach((character) => {
+      if (character.name === characterName) {
+      }
+    });
+  }
 
   return (
     <div id='game-page'>
-      <Sidebar>
-        <Sidebar.Items>
-          <Sidebar.ItemGroup>
-            <Sidebar.Item>Char 1</Sidebar.Item>
-            <Sidebar.Item>Char 2</Sidebar.Item>
-            <Sidebar.Item>Char 3</Sidebar.Item>
-          </Sidebar.ItemGroup>
-        </Sidebar.Items>
-      </Sidebar>
-      <div id='image-container'>
-        <img src={docData?.levelURL} alt={docData?.levelName} />
+      <GamePageSelect characters={characters} handleClick={handleSubmitGuess} />
+      <GamepageSidebar characters={characters} loading={loading} />
+      <div
+        id='image-container'
+        className=' flex justify-center'
+        onClick={handleGameClick}
+      >
+        <img
+          id='game-image'
+          src={imageURL}
+          alt={docData?.levelName}
+          className='w-full max-w-screen-xl'
+        />
       </div>
     </div>
   );
@@ -27,4 +65,24 @@ export function Component() {
 
 export function ErrorBoundary() {
   return <ErrorPage />;
+}
+
+// ? Move to util folder?
+// Finds the coords of click relative to the picture. (0,0) at top left of image (1,1) at bottom right
+function calcRelCoords(clientX, clientY) {
+  const containerRect = document
+    .querySelector('#game-image')
+    .getBoundingClientRect();
+  let relX = (clientX - containerRect.left) / containerRect.width;
+  let relY = (clientY - containerRect.top) / containerRect.height;
+  return [relX, relY];
+}
+
+// Checks if coords given match those in database, given some freedom in guess.
+function checkGuess(x, y, character) {}
+
+function charArrayFromSnapshot(snapshot) {
+  const characterArr = snapshot.docs.map((doc) => doc.data());
+  // characterArr.forEach((character) => {});
+  return characterArr;
 }
