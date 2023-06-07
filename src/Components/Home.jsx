@@ -11,9 +11,8 @@ export default function Home() {
   // const [snapshot, loading, error] = useCollectionOnce(
   //   collection(db, 'levels')
   // );
-
   return (
-    <div id='home' className='p-16'>
+    <div id='home' className='p-4 sm:p-16'>
       {/* {error && <ErrorPage />}
       {loading && <span>Collection: Loading...</span>} */}
       {snapshot && (
@@ -21,6 +20,7 @@ export default function Home() {
           {snapshot.docs.map((doc) => (
             <GameCard
               docData={doc.data()}
+              docID={doc.id}
               className='h-96 border-main-dark !bg-main font-semibold hover:shadow-main/60 hover:shadow-lg'
             />
           ))}
