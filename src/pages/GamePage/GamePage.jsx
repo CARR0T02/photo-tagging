@@ -21,6 +21,8 @@ export function Component() {
   // ! Mocking end
   const [characters, setCharacters] = useState([]);
   const [guessCoords, setGuessCoords] = useState([]);
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const [selectCoords, setSelectCoords] = useState([0, 0]);
 
   useEffect(() => {
     if (!loading) {
@@ -32,20 +34,16 @@ export function Component() {
   function handleGameClick(e) {
     const [relX, relY] = calcRelCoords(e.clientX, e.clientY);
     setGuessCoords([relX, relY]);
-    console.log(relX, relY);
-  }
-
-  // TODO
-  function handleSubmitGuess(characterName) {
-    characters.forEach((character) => {
-      if (character.name === characterName) {
-      }
-    });
+    setSelectCoords([e.pageX, e.pageY]);
   }
 
   return (
     <div id='game-page'>
-      <GamePageSelect characters={characters} handleClick={handleSubmitGuess} />
+      <GamePageSelect
+        characters={characters}
+        handleClick={handleSubmitGuess}
+        position={selectCoords}
+      />
       <GamepageSidebar characters={characters} loading={loading} />
       <div
         id='image-container'
@@ -77,9 +75,6 @@ function calcRelCoords(clientX, clientY) {
   let relY = (clientY - containerRect.top) / containerRect.height;
   return [relX, relY];
 }
-
-// Checks if coords given match those in database, given some freedom in guess.
-function checkGuess(x, y, character) {}
 
 function charArrayFromSnapshot(snapshot) {
   const characterArr = snapshot.docs.map((doc) => doc.data());
