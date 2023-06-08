@@ -10,7 +10,11 @@ export default function GamePageSelect({
   const [x, y] = position;
   if (visible) {
     return (
-      <div id='select-container' style={{ left: `${x}px`, top: `${y}px` }}>
+      <div
+        id='select-container'
+        style={{ left: `${x}px`, top: `${y}px` }}
+        className='sm:text-base text-xs'
+      >
         {characters.map((character) => (
           <button
             onClick={() => {

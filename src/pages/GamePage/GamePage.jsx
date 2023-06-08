@@ -8,6 +8,7 @@ import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 import { useDownloadURL } from 'react-firebase-hooks/storage';
 import GamepageSidebar from './GamepageSidebar';
 import GamePageSelect from './GamePageSelect';
+import Notifications from './Notifications';
 import { mockArr } from '../../Components/mock/mockCharArray';
 
 export function Component() {
@@ -23,6 +24,8 @@ export function Component() {
   const [guessCoords, setGuessCoords] = useState([]);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [selectCoords, setSelectCoords] = useState([0, 0]);
+  const [toastList, setToastList] = useState([]);
+  const [autoDeleteInterval, setautoDeleteInterval] = useState(3000);
 
   useEffect(() => {
     if (!loading) {
@@ -62,9 +65,9 @@ export function Component() {
     }
     if (checkGuess(relX, relY, character)) {
       removeChar(character);
-      // TODO success toast
+      setToastList([...toastList, createToastObj(true, character.name)]);
     } else {
-      // TODO failure toast
+      setToastList([...toastList, createToastObj(false)]);
     }
   }
 
@@ -93,6 +96,10 @@ export function Component() {
           className='w-full max-w-screen-xl'
         />
       </div>
+      <Notifications
+        toastList={toastList}
+        autoDeleteInterval={autoDeleteInterval}
+      />
     </div>
   );
 }
@@ -130,4 +137,11 @@ function checkGuess(relX, relY, character) {
     return true;
   }
   return false;
+}
+
+function createToastObj(isCorrect, name = undefined) {
+  return {
+    isCorrect,
+    name,
+  };
 }
