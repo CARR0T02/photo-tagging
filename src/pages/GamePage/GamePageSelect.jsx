@@ -1,4 +1,4 @@
-import '../styles/GamePageSelect.css';
+import '../../styles/GamePageSelect.css';
 import React from 'react';
 
 export default function GamePageSelect({ characters, handleClick }) {

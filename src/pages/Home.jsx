@@ -4,8 +4,8 @@ import { db } from '../firebase-config';
 import { collection } from 'firebase/firestore';
 import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 import ErrorPage from './ErrorPage';
-import GameCard from './GameCard';
-import { mockSnapshot as snapshot } from './mock/mockSnapshot.js';
+import GameCard from '../Components/GameCard';
+import { mockSnapshot as snapshot } from '../Components/mock/mockSnapshot.js';
 
 export default function Home() {
   // const [snapshot, loading, error] = useCollectionOnce(

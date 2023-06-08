@@ -1,14 +1,14 @@
-import '../styles/GamePage.css';
+import '../../styles/GamePage.css';
 import React, { useEffect, useState } from 'react';
-import ErrorPage from './ErrorPage';
+import ErrorPage from '../ErrorPage';
 import { useLocation } from 'react-router-dom';
-import { db, storage } from '../firebase-config';
+import { db, storage } from '../../firebase-config';
 import { collection } from 'firebase/firestore';
 import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 import { useDownloadURL } from 'react-firebase-hooks/storage';
-import { mockArr } from './mock/mockCharArray';
 import GamepageSidebar from './GamepageSidebar';
 import GamePageSelect from './GamePageSelect';
+import { mockArr } from '../../Components/mock/mockCharArray';
 
 export function Component() {
   const { docData, imageURL, docID } = useLocation().state;
