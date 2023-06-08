@@ -28,13 +28,48 @@ export function Component() {
     if (!loading) {
       // setCharacters(charArrayFromSnapshot(snapshot));
       setCharacters(mockArr);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (isSelectOpen) {
+            setIsSelectOpen(false);
+          }
+        }
+      });
     }
   }, [loading]);
 
   function handleGameClick(e) {
+    if (isSelectOpen) {
+      setIsSelectOpen(false);
+      return;
+    }
+    setIsSelectOpen(true);
     const [relX, relY] = calcRelCoords(e.clientX, e.clientY);
     setGuessCoords([relX, relY]);
     setSelectCoords([e.pageX, e.pageY]);
+  }
+
+  // Handles submit from select bar.
+  function handleSubmitGuess(characterName) {
+    setIsSelectOpen(false);
+    const [relX, relY] = guessCoords;
+    let character;
+    for (const char of characters) {
+      if (char.name !== characterName) {
+        continue;
+      }
+      character = char;
+    }
+    if (checkGuess(relX, relY, character)) {
+      removeChar(character);
+      // TODO success toast
+    } else {
+      // TODO failure toast
+    }
+  }
+
+  function removeChar(character) {
+    setCharacters(characters.filter((char) => char !== character));
   }
 
   return (
@@ -43,6 +78,7 @@ export function Component() {
         characters={characters}
         handleClick={handleSubmitGuess}
         position={selectCoords}
+        visible={isSelectOpen}
       />
       <GamepageSidebar characters={characters} loading={loading} />
       <div
@@ -65,7 +101,6 @@ export function ErrorBoundary() {
   return <ErrorPage />;
 }
 
-// ? Move to util folder?
 // Finds the coords of click relative to the picture. (0,0) at top left of image (1,1) at bottom right
 function calcRelCoords(clientX, clientY) {
   const containerRect = document
@@ -80,4 +115,19 @@ function charArrayFromSnapshot(snapshot) {
   const characterArr = snapshot.docs.map((doc) => doc.data());
   // characterArr.forEach((character) => {});
   return characterArr;
+}
+
+// Checks if coords given match those in database, given some freedom (delta) in guess.
+function checkGuess(relX, relY, character) {
+  const delta = 0.05;
+  const [characterX, characterY] = character.coords;
+  if (
+    characterX + delta > relX &&
+    characterX - delta < relX &&
+    characterY + delta > relY &&
+    characterY - delta < relY
+  ) {
+    return true;
+  }
+  return false;
 }

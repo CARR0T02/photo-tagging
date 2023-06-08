@@ -1,20 +1,28 @@
 import '../../styles/GamePageSelect.css';
 import React from 'react';
 
-export default function GamePageSelect({ characters, handleClick, position }) {
-  console.log(position);
+export default function GamePageSelect({
+  characters,
+  handleClick,
+  position,
+  visible,
+}) {
   const [x, y] = position;
-  return (
-    <div id='select-container' style={{ left: `${x}px`, top: `${y}px` }}>
-      {characters.map((character) => (
-        <button
-          onClick={() => {
-            handleClick(character.name);
-          }}
-        >
-          {character.name}
-        </button>
-      ))}
-    </div>
-  );
+  if (visible) {
+    return (
+      <div id='select-container' style={{ left: `${x}px`, top: `${y}px` }}>
+        {characters.map((character) => (
+          <button
+            onClick={() => {
+              handleClick(character.name);
+            }}
+          >
+            {character.name}
+          </button>
+        ))}
+      </div>
+    );
+  } else {
+    return;
+  }
 }
