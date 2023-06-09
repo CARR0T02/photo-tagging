@@ -2,35 +2,28 @@ import '../../styles/GamePage.css';
 import React, { useEffect, useState } from 'react';
 import ErrorPage from '../ErrorPage';
 import { useLocation } from 'react-router-dom';
-import { db, storage } from '../../firebase-config';
+import { db } from '../../firebase-config';
 import { collection } from 'firebase/firestore';
 import { useCollectionOnce } from 'react-firebase-hooks/firestore';
-import { useDownloadURL } from 'react-firebase-hooks/storage';
 import GamepageSidebar from './GamepageSidebar';
 import GamePageSelect from './GamePageSelect';
 import Notifications from './Notifications';
-import { mockArr } from '../../Components/mock/mockCharArray';
 
 export function Component() {
   const { docData, imageURL, docID } = useLocation().state;
-  // const [snapshot, loading, error] = useCollectionOnce(
-  //   collection(db, 'levels', docID, 'characters')
-  // );
-  // ! Mocking
-  const snapshot = mockArr;
-  const loading = false;
-  // ! Mocking end
+  const [snapshot, loading] = useCollectionOnce(
+    collection(db, 'levels', docID, 'characters')
+  );
+
   const [characters, setCharacters] = useState([]);
   const [guessCoords, setGuessCoords] = useState([]);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [selectCoords, setSelectCoords] = useState([0, 0]);
   const [toastList, setToastList] = useState([]);
-  const [autoDeleteInterval, setautoDeleteInterval] = useState(3000);
 
   useEffect(() => {
     if (!loading) {
-      // setCharacters(charArrayFromSnapshot(snapshot));
-      setCharacters(mockArr);
+      setCharacters(charArrayFromSnapshot(snapshot));
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
           if (isSelectOpen) {
@@ -69,6 +62,7 @@ export function Component() {
     } else {
       setToastList([...toastList, createToastObj(false)]);
     }
+    console.log(toastList);
   }
 
   function removeChar(character) {
@@ -83,7 +77,7 @@ export function Component() {
         position={selectCoords}
         visible={isSelectOpen}
       />
-      <GamepageSidebar characters={characters} loading={loading} />
+      <GamepageSidebar charactersData={characters} loading={loading} />
       <div
         id='image-container'
         className=' flex justify-center'
@@ -96,10 +90,7 @@ export function Component() {
           className='w-full max-w-screen-xl'
         />
       </div>
-      <Notifications
-        toastList={toastList}
-        autoDeleteInterval={autoDeleteInterval}
-      />
+      <Notifications toastList={toastList} />
     </div>
   );
 }
@@ -118,9 +109,9 @@ function calcRelCoords(clientX, clientY) {
   return [relX, relY];
 }
 
+// Gets array from snapshot
 function charArrayFromSnapshot(snapshot) {
   const characterArr = snapshot.docs.map((doc) => doc.data());
-  // characterArr.forEach((character) => {});
   return characterArr;
 }
 

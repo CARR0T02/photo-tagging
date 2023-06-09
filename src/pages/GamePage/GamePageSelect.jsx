@@ -20,6 +20,7 @@ export default function GamePageSelect({
             onClick={() => {
               handleClick(character.name);
             }}
+            key={character.name}
           >
             {character.name}
           </button>
