@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import SuccessToast from '../../Components/SuccessToast';
 import FailureToast from '../../Components/FailureToast';
 
-export default function Notifications({ toastList, autoDeleteInterval }) {
+export default function Notifications({ toastList }) {
   const [list, setList] = useState(toastList);
+  const autoDeleteInterval = 2000;
 
   useEffect(() => {
     setList([...toastList]);
@@ -34,9 +35,9 @@ export default function Notifications({ toastList, autoDeleteInterval }) {
     >
       {list.map((toast, i) => {
         if (toast.isCorrect) {
-          return <SuccessToast message={`You found ${toast.name}`} />;
+          return <SuccessToast message={`You found ${toast.name}`} key={i} />;
         }
-        return <FailureToast />;
+        return <FailureToast key={i} />;
       })}
     </div>
   );
