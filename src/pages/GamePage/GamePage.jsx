@@ -8,6 +8,7 @@ import { useCollectionOnce } from 'react-firebase-hooks/firestore';
 import GamepageSidebar from './GamepageSidebar';
 import GamePageSelect from './GamePageSelect';
 import Notifications from './Notifications';
+import WinModal from '../../Components/WinModal';
 
 export function Component() {
   const { docData, imageURL, docID } = useLocation().state;
@@ -20,6 +21,7 @@ export function Component() {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [selectCoords, setSelectCoords] = useState([0, 0]);
   const [toastList, setToastList] = useState([]);
+  const [hasWon, setHasWon] = useState(false);
 
   useEffect(() => {
     if (!loading) {
@@ -32,7 +34,17 @@ export function Component() {
         }
       });
     }
+    return () => {
+      setToastList([]);
+      setHasWon(false);
+    };
   }, [loading]);
+
+  useEffect(() => {
+    if (!loading && characters.length === 0) {
+      setHasWon(true);
+    }
+  }, [characters]);
 
   function handleGameClick(e) {
     if (isSelectOpen) {
@@ -62,7 +74,6 @@ export function Component() {
     } else {
       setToastList([...toastList, createToastObj(false)]);
     }
-    console.log(toastList);
   }
 
   function removeChar(character) {
@@ -90,7 +101,8 @@ export function Component() {
           className='w-full max-w-screen-xl'
         />
       </div>
-      <Notifications toastList={toastList} />
+      <Notifications toastList={toastList} setToastList={setToastList} />
+      {hasWon && <WinModal hasWon={hasWon} />}
     </div>
   );
 }
