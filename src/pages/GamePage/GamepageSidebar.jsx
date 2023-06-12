@@ -33,7 +33,7 @@ export default function GamepageSidebar({ loading, charactersData }) {
         className={`sidebar
         ${isSideBarOpen ? '' : 'none'} `}
       >
-        <span>To Find:</span>
+        <h2 className='font-medium text-xl'>To Find:</h2>
         {loading && <Spinner aria-label='Loading character data' size='xl' />}
         <Sidebar.Items>
           <Sidebar.ItemGroup>

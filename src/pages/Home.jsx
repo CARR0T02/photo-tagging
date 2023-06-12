@@ -13,7 +13,11 @@ export default function Home() {
   return (
     <div id='home' className='p-4 sm:p-16'>
       {error && <ErrorPage />}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && (
+        <span className='text-gray-300 text-9xl text-center'>
+          Loading collection...
+        </span>
+      )}
       {snapshot && (
         <div id='game-selection'>
           {snapshot.docs.map((doc) => (

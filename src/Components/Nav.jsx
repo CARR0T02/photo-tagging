@@ -2,7 +2,7 @@ import { Navbar } from 'flowbite-react';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function Nav({ className }) {
+export default function Nav({ className, childClass }) {
   return (
     <Navbar className={className}>
       <Navbar.Brand>
@@ -10,12 +10,12 @@ export default function Nav({ className }) {
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse>
-        <Navbar.Link className={className}>
+        <div className={childClass}>
           <NavLink to={'/'}>Home</NavLink>
-        </Navbar.Link>
-        <Navbar.Link className={className}>
+        </div>
+        <div className={childClass}>
           <NavLink to={'/about'}>About</NavLink>
-        </Navbar.Link>
+        </div>
       </Navbar.Collapse>
     </Navbar>
   );
