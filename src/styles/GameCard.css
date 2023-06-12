@@ -1,7 +1,5 @@
-#game-selection {
-  > .card-container {
-    width: min(400px, 100%);
-  }
+#game-selection > .card-container {
+  width: min(400px, 100%);
 }
 
 [data-testid='flowbite-card'] > img {

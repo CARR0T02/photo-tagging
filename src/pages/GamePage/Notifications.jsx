@@ -1,10 +1,9 @@
 import '../../styles/Notifications.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import SuccessToast from '../../Components/SuccessToast';
 import FailureToast from '../../Components/FailureToast';
 
 export default function Notifications({ toastList, setToastList }) {
-  const [list, setList] = useState(toastList);
   const autoDeleteInterval = 2000;
 
   useEffect(() => {
@@ -16,7 +15,7 @@ export default function Notifications({ toastList, setToastList }) {
     return () => {
       clearInterval(interval);
     };
-  }, [toastList, list]);
+  }, [toastList]);
 
   const deleteToast = (index) => {
     let newList = toastList.slice(index);

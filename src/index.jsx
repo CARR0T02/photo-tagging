@@ -2,7 +2,7 @@ import './styles/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
-  createBrowserRouter,
+  createHashRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
@@ -12,7 +12,7 @@ import Loading from './Components/Loading';
 import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />} errorElement={<ErrorPage />}>
       <Route path='' element={<Home />} />
