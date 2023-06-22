@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/photo-tagging/static/css/main.027278e2.css",
-    "main.js": "/photo-tagging/static/js/main.ce1f7c20.js",
-    "static/js/175.dc93e3e0.chunk.js": "/photo-tagging/static/js/175.dc93e3e0.chunk.js",
+    "main.js": "/photo-tagging/static/js/main.b3370ffc.js",
+    "static/js/175.90c09f25.chunk.js": "/photo-tagging/static/js/175.90c09f25.chunk.js",
     "static/css/87.8fd8f33b.chunk.css": "/photo-tagging/static/css/87.8fd8f33b.chunk.css",
     "static/js/87.461bd9c6.chunk.js": "/photo-tagging/static/js/87.461bd9c6.chunk.js",
     "index.html": "/photo-tagging/index.html",
     "main.027278e2.css.map": "/photo-tagging/static/css/main.027278e2.css.map",
-    "main.ce1f7c20.js.map": "/photo-tagging/static/js/main.ce1f7c20.js.map",
-    "175.dc93e3e0.chunk.js.map": "/photo-tagging/static/js/175.dc93e3e0.chunk.js.map",
+    "main.b3370ffc.js.map": "/photo-tagging/static/js/main.b3370ffc.js.map",
+    "175.90c09f25.chunk.js.map": "/photo-tagging/static/js/175.90c09f25.chunk.js.map",
     "87.8fd8f33b.chunk.css.map": "/photo-tagging/static/css/87.8fd8f33b.chunk.css.map",
     "87.461bd9c6.chunk.js.map": "/photo-tagging/static/js/87.461bd9c6.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.027278e2.css",
-    "static/js/main.ce1f7c20.js"
+    "static/js/main.b3370ffc.js"
   ]
 }
